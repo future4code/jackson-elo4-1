@@ -6,6 +6,11 @@ import TextField from "@material-ui/core/TextField";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import Select from "@material-ui/core/Select";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Box from "@material-ui/core/Box";
 
 const ExtDiv = styled.div`
   display: flex;
@@ -140,23 +145,48 @@ export default class AddProduct extends React.Component {
                 color="secondary"
                 onChange={this.onChangeDescription}
               />
-              <TextField
-                required
-                type="text"
-                variant="outlined"
-                label="Método de Pagamento"
-                color="secondary"
-                onChange={this.onChangePayment}
-              />
+              <FormControl variant="outlined">
+                <Box width="225px">
+                  <InputLabel
+                    id="demo-simple-select-outlined-label"
+                    color="secondary"
+                  >
+                    Método de Pagamento
+                  </InputLabel>
+                </Box>
 
-              <TextField
-                required
-                type="text"
-                variant="outlined"
-                label="Categoria"
-                color="secondary"
-                onChange={this.onChangeCategory}
-              />
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  onChange={this.onChangePayment}
+                  label="Categoria"
+                >
+                  <MenuItem value={"cartao"}>Cartão</MenuItem>
+                  <MenuItem value={"avista"}>À vista</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl variant="outlined">
+                <Box width="225px">
+                  <InputLabel
+                    id="demo-simple-select-outlined-label"
+                    color="secondary"
+                  >
+                    Categoria
+                  </InputLabel>
+                </Box>
+
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  onChange={this.onChangeCategory}
+                  label="Categoria"
+                >
+                  <MenuItem value={"acessorios"}>Acessórios</MenuItem>
+                  <MenuItem value={"casa"}>Casa</MenuItem>
+                  <MenuItem value={"decoracao"}>Decoração</MenuItem>
+                  <MenuItem value={"eco"}>Eco</MenuItem>
+                </Select>
+              </FormControl>
 
               <TextField
                 required
