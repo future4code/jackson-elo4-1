@@ -1,10 +1,13 @@
-import React from 'react'
-import { AppContainer } from './components/AppContainer'
+import React from "react";
+import axios from "axios";
+import styled from "styled-components";
 
-function App() {
-	return (
-        <AppContainer />
-	)
+export default class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>Pronto para começar!</p>
+      </div>
+    );
+  }
 }
-
-export default App
