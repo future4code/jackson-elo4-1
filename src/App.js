@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import AddProduct from "./components/AddProduct";
 
 const theme = createMuiTheme({
   palette: {
@@ -29,7 +30,7 @@ export default class App extends React.Component {
             color="secondary"
           />
         </ThemeProvider> */}
-        <p>Pronto para começar!</p>
+        <AddProduct />
       </div>
     );
   }
