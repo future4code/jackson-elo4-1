@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+
 import LoginScreen from "./components/LoginScreen";
 import ProductGrid from "./components/ProductGrid";
 import SellerPanel from "./components/SellerPanel";
@@ -12,6 +13,7 @@ const ContainerApp = styled.main`
   width: 100%;
   height: auto;
 `;
+
 
 
 export default class App extends React.Component {
@@ -50,7 +52,19 @@ export default class App extends React.Component {
 
     return (
       <div>
+
         {renderize()}
+        {/* <ThemeProvider theme={theme}>
+          <Button variant="contained" color="primary">
+          </Button>
+          <TextField
+            label="Nome do produto"
+            variant="standard"
+            color="secondary"
+          />
+        </ThemeProvider> */}
+        <p>Pronto para começar!</p>
+
       </div>
     );
   };
