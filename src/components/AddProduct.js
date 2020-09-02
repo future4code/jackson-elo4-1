@@ -146,6 +146,7 @@ export default class AddProduct extends React.Component {
         });
       })
       .catch((err) => {
+        alert(`Preencha todos os campos do produto!`);
         console.log(err.response);
       });
   };
