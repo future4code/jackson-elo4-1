@@ -126,7 +126,7 @@ export default class ProductCard extends React.Component {
                   Pague no {item.paymentMethod} em até <strong>{item.installments}x</strong>
                 </Typography >
                 <Typography variant="body2" color="textSecondary" component="p">
-                  {item.description}
+                  <strong>{item.category}</strong> - {item.description}
                 </Typography>
                 
 

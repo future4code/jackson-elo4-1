@@ -36,7 +36,7 @@ export default class App extends React.Component {
       if (this.state.pageRender === "pageDirection") {
         return (
           <LoginScreen
-            functionOnClickCliente={this.onClickClient}
+            functionOnClickClient={this.onClickClient}
             functionOnClickSeller={this.onClickSeller}
           />
         );
@@ -49,9 +49,12 @@ export default class App extends React.Component {
       }
     };
 
-    return <div>(
-      {renderize()}</div>;
-  })
+    return (
+      <div>
+      {renderize()}
+      </div>
+      )
+  }
 
 
 }
