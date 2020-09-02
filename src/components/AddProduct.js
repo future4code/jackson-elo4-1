@@ -135,6 +135,7 @@ export default class AddProduct extends React.Component {
           <ExtDiv>
             <IntDiv>
               <Button
+                onClick={this.props.onClickBack}
                 color="secondary"
                 variant="outlined"
                 size="small"
