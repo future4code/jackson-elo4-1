@@ -28,7 +28,7 @@ const IntDiv = styled.div`
   align-items: center;
   justify-content: space-evenly;
   width: 100vw;
-  height: 140vh;
+  min-height: 140vh;
 `;
 
 const Title = styled.h3`
@@ -54,8 +54,8 @@ const theme = createMuiTheme({
 export default class AddProduct extends React.Component {
   state = {
     productInput: "",
-    priceInput: 2,
-    installmentsInput: 3,
+    priceInput: "",
+    installmentsInput: "",
     descriptionInput: "",
     paymentInput: "",
     categoryInput: "",
@@ -122,6 +122,15 @@ export default class AddProduct extends React.Component {
       .then((response) => {
         alert(`Seu produto foi adicionado com sucesso!`);
         console.log(response);
+        this.setState({
+          productInput: "",
+          priceInput: "",
+          installmentsInput: "",
+          descriptionInput: "",
+          paymentInput: "",
+          categoryInput: "",
+          urlInputValue: "",
+        });
       })
       .catch((err) => {
         console.log(err.response);
@@ -146,6 +155,7 @@ export default class AddProduct extends React.Component {
               <CardSvg src={CardImage} />
               <Title>Cadastre seu produto</Title>
               <TextField
+                value={this.state.productInput}
                 required
                 variant="outlined"
                 label="Produto"
@@ -154,6 +164,7 @@ export default class AddProduct extends React.Component {
               />
               <TextField
                 required
+                value={this.state.priceInput}
                 type="number"
                 variant="outlined"
                 label="Valor"
@@ -162,6 +173,7 @@ export default class AddProduct extends React.Component {
               />
               <TextField
                 required
+                value={this.state.installmentsInput}
                 type="number"
                 variant="outlined"
                 label="Parcelas"
@@ -170,6 +182,7 @@ export default class AddProduct extends React.Component {
               />
               <TextField
                 required
+                value={this.state.descriptionInput}
                 type="text"
                 variant="outlined"
                 label="Descrição"
@@ -189,6 +202,7 @@ export default class AddProduct extends React.Component {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
+                  value={this.state.paymentInput}
                   onChange={this.onChangePayment}
                   label="Categoria"
                 >
@@ -209,6 +223,7 @@ export default class AddProduct extends React.Component {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
+                  value={this.state.categoryInput}
                   onChange={this.onChangeCategory}
                   label="Categoria"
                 >
@@ -226,6 +241,7 @@ export default class AddProduct extends React.Component {
                 label="URL"
                 color="secondary"
                 onChange={this.onChangeUrl}
+                value={this.state.urlInputValue}
               />
 
               <Button
