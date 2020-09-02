@@ -35,7 +35,7 @@ export default class App extends React.Component {
   render() {
     const renderize = () =>{
       if(this.state.pageRender === "pageDirection"){
-        return <LoginScreen functionOnClickCliente={this.onClickClient} functionOnClickSeller={this.onClickSeller}/>
+        return <LoginScreen functionOnClickClient={this.onClickClient} functionOnClickSeller={this.onClickSeller}/>
       }
       else if(this.state.pageRender === "pageProducts"){
         return <ProductGrid/>

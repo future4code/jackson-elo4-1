@@ -85,6 +85,7 @@ export default class ProductCard extends React.Component {
   render() {
 
     return (
+      <div>
     <CardsGrid>
       <ThemeProvider theme={theme}>
       {this.state.products.map ( (item) => {
@@ -132,5 +133,6 @@ export default class ProductCard extends React.Component {
              })}
         </ThemeProvider>
     </CardsGrid>
+    </div>
     )
   }}

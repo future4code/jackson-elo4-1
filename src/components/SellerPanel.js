@@ -13,7 +13,7 @@ const Title = styled.p `
 text-align:center;
 height: 20%;
 margin-bottom: 2rem;
-margin:0;
+margin: 0;
 padding: 40px;
 font-size: 1.5rem;
 ` 
@@ -118,7 +118,8 @@ export default class SellerPanel extends React.Component {
       <Button 
       variant="contained" 
       color="secondary" 
-      href="#contained-buttons">
+      href="#contained-buttons"
+      onClick={this.props.functionOnClickAdd}>
       Cadastrar Produto
       </Button>
       </SectionOne>
