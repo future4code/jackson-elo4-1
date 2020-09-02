@@ -14,7 +14,6 @@ const ContainerApp = styled.main`
 `;
 
 
-
 export default class App extends React.Component {
   state={
     pageRender: "pageDirection"
@@ -53,6 +52,7 @@ export default class App extends React.Component {
       <div>
         {renderize()}
       </div>
+
     );
   };
 }
