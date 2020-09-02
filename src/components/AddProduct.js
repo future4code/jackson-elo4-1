@@ -11,6 +11,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
+import CardImage from "./../img/card.svg";
 
 const ExtDiv = styled.div`
   display: flex;
@@ -27,11 +28,16 @@ const IntDiv = styled.div`
   align-items: center;
   justify-content: space-evenly;
   width: 100vw;
-  height: 100vh;
+  height: 140vh;
 `;
 
 const Title = styled.h3`
   color: #fdb930;
+`;
+
+const CardSvg = styled.img`
+  width: 50%;
+  margin: 20px 0;
 `;
 
 const theme = createMuiTheme({
@@ -48,12 +54,12 @@ const theme = createMuiTheme({
 export default class AddProduct extends React.Component {
   state = {
     productInput: "",
-    priceInput: "",
-    installmentsInput: "",
+    priceInput: 2,
+    installmentsInput: 3,
     descriptionInput: "",
     paymentInput: "",
     categoryInput: "",
-    urlInput: "",
+    urlInputValue: "",
   };
 
   onChangeProduct = (e) => {
@@ -62,12 +68,12 @@ export default class AddProduct extends React.Component {
   };
 
   onChangePrice = (e) => {
-    this.setState({ priceInput: e.target.value });
+    this.setState({ priceInput: Number(e.target.value) });
     console.log(this.state.priceInput);
   };
 
   onChangeInstallments = (e) => {
-    this.setState({ installmentsInput: e.target.value });
+    this.setState({ installmentsInput: Number(e.target.value) });
     console.log(this.state.installmentsInput);
   };
 
@@ -87,16 +93,39 @@ export default class AddProduct extends React.Component {
   };
 
   onChangeUrl = (e) => {
-    this.setState({ urlInput: e.target.value });
-    console.log(this.state.urlInput);
+    this.setState({ urlInputValue: e.target.value });
+    console.log(this.state.urlInputValue);
   };
 
   createProduct = () => {
-    const body = {};
+    const body = {
+      name: this.state.productInput,
+      description: this.state.descriptionInput,
+      price: this.state.priceInput,
+      paymentMethod: this.state.paymentInput,
+      category: this.state.categoryInput,
+      photos: [this.state.urlInputValue],
+      installments: this.state.installmentsInput,
+    };
 
     const request = axios.post(
-      "https://us-central1-labenu-apis.cloudfunctions.net/eloFourOne/products"
+      "https://us-central1-labenu-apis.cloudfunctions.net/eloFourOne/products",
+      body,
+      {
+        headers: {
+          Authorization: "luccas-barros-jackson",
+        },
+      }
     );
+
+    request
+      .then((response) => {
+        alert(`Seu produto foi adicionado com sucesso!`);
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
 
   render() {
@@ -113,6 +142,7 @@ export default class AddProduct extends React.Component {
               >
                 Voltar
               </Button>
+              <CardSvg src={CardImage} />
               <Title>Cadastre seu produto</Title>
               <TextField
                 required
@@ -198,6 +228,7 @@ export default class AddProduct extends React.Component {
               />
 
               <Button
+                onClick={this.createProduct}
                 color="secondary"
                 variant="contained"
                 endIcon={<AddIcon />}
