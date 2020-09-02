@@ -30,7 +30,6 @@ export default class App extends React.Component {
             color="secondary"
           />
         </ThemeProvider> */}
-        <AddProduct />
       </div>
     );
   }
