@@ -5,7 +5,6 @@ import LoginScreen from "./components/LoginScreen";
 import ProductGrid from "./components/ProductGrid";
 import SellerPanel from "./components/SellerPanel";
 
-
 const ContainerApp = styled.main`
   display: flex;
   flex-direction: column;
@@ -31,7 +30,6 @@ export default class App extends React.Component {
   };
 
   render() {
-
     const renderize = () => {
       if (this.state.pageRender === "pageDirection") {
         return (
@@ -49,12 +47,8 @@ export default class App extends React.Component {
       }
     };
 
-    return (
-      <div>
-      {renderize()}
-      </div>
-      )
+
+    return <div>{renderize()}</div>;
   }
-
-
 }
+
