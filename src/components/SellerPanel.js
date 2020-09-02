@@ -6,7 +6,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const GeneralContainer = styled.div `
 background-color: #f4f5f7;
-height:100%;
+min-height: 100vh;
 width: 100%;`
 
 const Title = styled.p ` 
