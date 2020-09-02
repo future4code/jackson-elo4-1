@@ -13,7 +13,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+import Fab from '@material-ui/core/Fab';
+
 //MATERIAL UI ICON
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 //tema
@@ -56,6 +59,14 @@ const CardContainer = styled.div`
   @media (min-width: 600px) {
     width: 15em;
   }
+`
+
+const ShoppingIconContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding-right: 1em;
+  padding-bottom: 2em;
 `
 
 
@@ -122,7 +133,7 @@ export default class ProductCard extends React.Component {
               </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button startIcon={<ShoppingCartIcon />}size="small" color="secondary">
+                <Button startIcon={<AddShoppingCartIcon />}size="small" color="secondary">
                   Adicionar ao carrinho
                 </Button>
               </CardActions>
@@ -131,6 +142,13 @@ export default class ProductCard extends React.Component {
       </CardContainer>
             )
              })}
+             
+              <ShoppingIconContainer>
+                <Fab size="large" color="secondary">
+                  <ShoppingCartIcon/>
+                </Fab>
+              </ShoppingIconContainer>
+
         </ThemeProvider>
     </CardsGrid>
     </div>
