@@ -5,7 +5,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
-import ProductCard from './components/ProductCard.js'
+import ProductGrid from './components/ProductGrid.js'
 
 const theme = createMuiTheme({
   palette: {
@@ -22,7 +22,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <ProductCard></ProductCard>
+        <ProductGrid></ProductGrid>
       </div>
     );
   }
