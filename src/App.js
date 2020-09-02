@@ -1,24 +1,10 @@
 import React from "react";
-import axios from "axios";
 import styled from "styled-components";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import AddProduct from "./components/AddProduct";
 import LoginScreen from "./components/LoginScreen";
 import ProductGrid from "./components/ProductGrid";
 import SellerPanel from "./components/SellerPanel";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#f4f5f7",
-    },
-    secondary: {
-      main: "#fdb930",
-    },
-  },
-});
 
 const ContainerApp = styled.main`
   display: flex;
@@ -29,7 +15,7 @@ const ContainerApp = styled.main`
 
 export default class App extends React.Component {
   state = {
-    pageRender: "pageAddProducts",
+    pageRender: "pageDirection",
   };
 
   onClickClient = () => {
@@ -45,6 +31,7 @@ export default class App extends React.Component {
   };
 
   render() {
+
     const renderize = () => {
       if (this.state.pageRender === "pageDirection") {
         return (
@@ -62,6 +49,9 @@ export default class App extends React.Component {
       }
     };
 
-    return <div>{renderize()}</div>;
-  }
+    return <div>(
+      {renderize()}</div>;
+  })
+
+
 }
