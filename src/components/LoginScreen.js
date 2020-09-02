@@ -31,10 +31,16 @@ const DivButton = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   height: 20vh;
+  @media (min-width: 600px) {
+    height: 30vh;
+  }
 `;
 
 const ImgSvgLogin = styled.img`
   max-width: 50vw;
+  @media (min-width: 600px) {
+    width: 25vw;
+  }
 `;
 
 const Imglogo = styled.img`

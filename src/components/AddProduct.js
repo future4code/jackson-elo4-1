@@ -13,6 +13,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
 import CardImage from "./../img/card.svg";
 
+// Div Externa
 const ExtDiv = styled.div`
   display: flex;
   background-color: #a1a1a1;
@@ -20,6 +21,7 @@ const ExtDiv = styled.div`
   height: auto;
 `;
 
+// Div do form
 const IntDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,6 +37,7 @@ const Title = styled.h3`
   color: #fdb930;
 `;
 
+// Imagem
 const CardSvg = styled.img`
   width: 50%;
   margin: 20px 0;
@@ -62,6 +65,7 @@ export default class AddProduct extends React.Component {
     urlInputValue: "",
   };
 
+  // ====== OnChange dos Inputs ========
   onChangeProduct = (e) => {
     this.setState({ productInput: e.target.value });
     console.log(this.state.productInput);
@@ -97,6 +101,7 @@ export default class AddProduct extends React.Component {
     console.log(this.state.urlInputValue);
   };
 
+  // ==== API de criar produto ====
   createProduct = () => {
     const body = {
       name: this.state.productInput,
