@@ -20,8 +20,8 @@ export default class LoginScreen extends React.Component {
     return (
      <ThemeProvider theme={theme}>
         <h1>elo4</h1>
-        <Button onClick={this.props.functionOnClickClient} variant="contained" color="secondary">VENDEDOR</Button>
-        <Button onClick={this.props.functionOnClickSeller} variant="contained" color="secondary">CONSUMIDOR</Button>
+        <Button onClick={this.props.functionOnClickSeller} variant="contained" color="secondary">VENDEDOR</Button>
+        <Button onClick={this.props.functionOnClickClient} variant="contained" color="secondary">CONSUMIDOR</Button>
       </ThemeProvider>
     );
   }
