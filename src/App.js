@@ -9,6 +9,7 @@ import LoginScreen from "./components/LoginScreen";
 import ProductGrid from "./components/ProductGrid";
 import SellerPanel from "./components/SellerPanel";
 
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -67,9 +68,7 @@ export default class App extends React.Component {
 
     return (
       <div>
-
         {renderize()}
-
       </div>
     );
   };
