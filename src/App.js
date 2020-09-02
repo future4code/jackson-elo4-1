@@ -13,46 +13,45 @@ const ContainerApp = styled.main`
   height: auto;
 `;
 
-
 export default class App extends React.Component {
-  state={
-    pageRender: "pageDirection"
+  state = {
+    pageRender: "pageDirection",
   };
 
-  onClickClient = () =>{
-    this.setState({pageRender: "pageProducts"})
+  onClickClient = () => {
+    this.setState({ pageRender: "pageProducts" });
   };
 
-  onClickSeller = () =>{
-    this.setState({pageRender: "pageSeller"})
+  onClickSeller = () => {
+    this.setState({ pageRender: "pageSeller" });
   };
 
-  onClickAddProducts = () =>{
-    this.setState({pageRender: "pageAddProducts"})
+  onClickAddProducts = () => {
+    this.setState({ pageRender: "pageAddProducts" });
   };
-
 
   render() {
-    const renderize = () =>{
-      if(this.state.pageRender === "pageDirection"){
-        return <LoginScreen functionOnClickClient={this.onClickClient} functionOnClickSeller={this.onClickSeller}/>
-      }
-      else if(this.state.pageRender === "pageProducts"){
-        return <ProductGrid/>
-      }
-      else if(this.state.pageRender === "pageSeller"){
-        return <SellerPanel functionOnClickAdd={this.onClickAddProducts}/>
-      }
-      else if(this.state.pageRender === "pageAddProducts"){
-        return <AddProduct/>
+
+    const renderize = () => {
+      if (this.state.pageRender === "pageDirection") {
+        return (
+          <LoginScreen
+            functionOnClickCliente={this.onClickClient}
+            functionOnClickSeller={this.onClickSeller}
+          />
+        );
+      } else if (this.state.pageRender === "pageProducts") {
+        return <ProductGrid />;
+      } else if (this.state.pageRender === "pageSeller") {
+        return <SellerPanel functionOnClickAdd={this.onClickAddProducts} />;
+      } else if (this.state.pageRender === "pageAddProducts") {
+        return <AddProduct onClickBack={this.onClickSeller} />;
       }
     };
 
-    return (
-      <div>
-        {renderize()}
-      </div>
+    return <div>(
+      {renderize()}</div>;
+  })
 
-    );
-  };
+
 }
