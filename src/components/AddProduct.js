@@ -31,7 +31,7 @@ const ExtDiv = styled.div`
 const IntDiv = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #f4f5f7;
+  background-color: white;
   padding: 24px;
   align-items: center;
   justify-content: space-evenly;

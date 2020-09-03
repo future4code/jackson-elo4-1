@@ -1,13 +1,26 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
-import Button from "@material-ui/core/Button";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import CardImage from "./../img/seller-delete.png";
+import Delete from '@material-ui/icons/DeleteOutlined';
+
+
 
 const GeneralContainer = styled.div `
-background-color: #f4f5f7;
+background-color: white;
 min-height: 100vh;
 width: 100%;`
+
+const CardPhoto = styled.img`
+width: 50%;
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+margin-left: 25%;
+margin-bottom: 10%;`
 
 const Title = styled.p ` 
 text-align:center;
@@ -47,7 +60,8 @@ display:grid;
 grid-template-rows: 1fr 1fr;
 margin-top: 0px;`
 
-const ButtonConfig = styled.div ` `
+const ButtonConfig = styled.div `
+margin-right: 10px; `
 
 
 const theme = createMuiTheme({
@@ -128,6 +142,8 @@ export default class SellerPanel extends React.Component {
 
       <Title>Gerenciar Produtos</Title>
 
+      <CardPhoto src={CardImage} />
+
       <ProductDeleteSection>
           {this.state.products.map((item) => {
           return <p onClick={this.getProducts} key={item.id}>
@@ -147,6 +163,7 @@ export default class SellerPanel extends React.Component {
           color="primary" 
           href="#contained-buttons"
           size="small"
+          endIcon={<Delete />}
           onClick={() => this.deleteProducts(item.id)}>Deletar Produto</Button>
           </ButtonConfig> 
 
