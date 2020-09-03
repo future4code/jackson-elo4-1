@@ -1,18 +1,25 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+
+// === Icons ===
+import AddIcon from "@material-ui/icons/Add";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+
+// === Material Components ===
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
+
+// === IMGS ===
 import CardImage from "./../img/card.svg";
 
+// Div Externa
 const ExtDiv = styled.div`
   display: flex;
   background-color: #a1a1a1;
@@ -20,6 +27,7 @@ const ExtDiv = styled.div`
   height: auto;
 `;
 
+// Div do form
 const IntDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,6 +43,7 @@ const Title = styled.h3`
   color: #fdb930;
 `;
 
+// Imagem
 const CardSvg = styled.img`
   width: 50%;
   margin: 20px 0;
@@ -62,6 +71,7 @@ export default class AddProduct extends React.Component {
     urlInputValue: "",
   };
 
+  // ====== OnChange dos Inputs ========
   onChangeProduct = (e) => {
     this.setState({ productInput: e.target.value });
     console.log(this.state.productInput);
@@ -97,6 +107,7 @@ export default class AddProduct extends React.Component {
     console.log(this.state.urlInputValue);
   };
 
+  // ==== API de criar produto ====
   createProduct = () => {
     const body = {
       name: this.state.productInput,

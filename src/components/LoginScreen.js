@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+
+// Material
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+
+// Imagens
 import LoginImage from "./../img/login.svg";
 import LogoImage from "./../img/logo.png";
 
@@ -31,10 +35,16 @@ const DivButton = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   height: 20vh;
+  @media (min-width: 600px) {
+    height: 30vh;
+  }
 `;
 
 const ImgSvgLogin = styled.img`
   max-width: 50vw;
+  @media (min-width: 600px) {
+    width: 25vw;
+  }
 `;
 
 const Imglogo = styled.img`
