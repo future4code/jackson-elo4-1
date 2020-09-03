@@ -37,6 +37,10 @@ const IntDiv = styled.div`
   justify-content: space-evenly;
   width: 100vw;
   min-height: 140vh;
+
+  @media (min-width: 600px) {
+    height: 200vh;
+  }
 `;
 
 const Title = styled.h3`
@@ -47,6 +51,10 @@ const Title = styled.h3`
 const CardSvg = styled.img`
   width: 50%;
   margin: 20px 0;
+
+  @media (min-width: 600px) {
+    width: 30%;
+  }
 `;
 
 const theme = createMuiTheme({
@@ -144,6 +152,7 @@ export default class AddProduct extends React.Component {
         });
       })
       .catch((err) => {
+        alert(`Preencha todos os campos do produto!`);
         console.log(err.response);
       });
   };
