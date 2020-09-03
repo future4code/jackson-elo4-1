@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+
+// Material
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+
+// Imagens
 import LoginImage from "./../img/login.svg";
 import LogoImage from "./../img/logo.png";
 

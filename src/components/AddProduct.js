@@ -1,16 +1,22 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+
+// === Icons ===
+import AddIcon from "@material-ui/icons/Add";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+
+// === Material Components ===
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
+
+// === IMGS ===
 import CardImage from "./../img/card.svg";
 
 // Div Externa
