@@ -15,6 +15,7 @@ const ContainerApp = styled.main`
 export default class App extends React.Component {
   state = {
     pageRender: "pageDirection",
+
   };
 
   onClickClient = () => {
@@ -28,6 +29,7 @@ export default class App extends React.Component {
   onClickAddProducts = () => {
     this.setState({ pageRender: "pageAddProducts" });
   };
+
 
   render() {
     const renderize = () => {

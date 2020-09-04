@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+import HeaderFilter from "./HeaderFilter"
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import ShoppingCart from "./ShoppingCart";
@@ -89,6 +90,13 @@ export default class ProductCard extends React.Component {
     cartVisibility: false,
     cartItems: [],
     subtotal: 0,
+    filters: {
+      minValue: 0,
+      maxValue: Infinity,
+    },
+    searchText: "",
+    category: ""
+  }
   };
 
   onChangeSort = (event) => {
@@ -140,6 +148,37 @@ export default class ProductCard extends React.Component {
         this.setState({ products: arrayAlterado });
       }
     );
+  };
+
+  inputText = (event) =>{
+    this.setState({searchText: event.target.value})
+  };
+
+  updateFilter = (newValueFilter) =>{
+    this.setState({filters: {...this.state.filters, ...newValueFilter}})
+  };
+
+  category = (event) =>{
+    this.setState({cateory: event.target.value})
+  };
+
+
+  filterProducts = () =>{
+    const newProducts = this.state.products
+    const filteredProducts = newProducts.filter(product =>{
+      return product.name.toLowerCase().indexOf(this.state.searchText.toLowerCase())> -1
+    }).filter(product =>{
+      return product.price < (this.state.filters.maxValue || Infinity)
+    }).filter(product =>{
+      return product.price > (this.state.filters.minValue || 0)
+    }).filter(product =>{
+      return product.description.toLowerCase().indexOf(this.state.searchText.toLowerCase())> -1
+    })
+    // .filter(product =>{
+    //   return product.category === (this.state.category)
+    // })
+
+    return filteredProducts
   };
 
   getProducts = () => {
@@ -202,7 +241,10 @@ export default class ProductCard extends React.Component {
 
   render() {
     return (
-      <div>
+
+       <div>
+       <HeaderFilter stateProducts={this.state.products} onChangeFilter={this.updateFilter}
+          searchTitle={this.state.searchText} changeSearch={this.inputText} function={this.filterProducts}/>
         <ThemeProvider theme={theme}>
           <OrderDiv>
             <FormControl variant="outlined">
@@ -228,9 +270,11 @@ export default class ProductCard extends React.Component {
               </Select>
             </FormControl>
           </OrderDiv>
+
         </ThemeProvider>
 
         <CardsGrid>
+         
           <ThemeProvider theme={theme}>
             {/* Aqui é onde o carrinho de compra é renderizado: */}
             {this.state.cartVisibility && (
@@ -242,7 +286,7 @@ export default class ProductCard extends React.Component {
             )}
 
             {/* Aqui é onde o grid de produtos é renderizado: */}
-            {this.state.products.map((item) => {
+            {this.filterProducts().map((item) => {
               return (
                 <CardContainer>
                   <Card>
