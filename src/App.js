@@ -16,7 +16,7 @@ const ContainerApp = styled.main`
 
 export default class App extends React.Component {
   state={
-    pageRender: "pageDirection"
+    pageRender: "pageheader"
   };
 
   onClickClient = () =>{
@@ -31,11 +31,16 @@ export default class App extends React.Component {
     this.setState({pageRender: "pageAddProducts"})
   };
 
+  onClickButton = (newState) =>{
+    this.setState({newStateProducts: newState})
+  };
+
 
   render() {
     const renderize = () =>{
       if(this.state.pageRender === "pageDirection"){
-        return <LoginScreen functionOnClickCliente={this.onClickClient} functionOnClickSeller={this.onClickSeller}/>
+        return <LoginScreen functionOnClickClient={this.onClickClient}
+         functionOnClickSeller={this.onClickSeller}/>
       }
       else if(this.state.pageRender === "pageProducts"){
         return <ProductGrid/>
@@ -49,10 +54,10 @@ export default class App extends React.Component {
     };
 
     return (
-      <div>
+      <ContainerApp>
+        <ProductGrid/>
         {renderize()}
-      </div>
-
+      </ContainerApp>
     );
   };
-}
+np}

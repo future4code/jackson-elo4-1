@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+import HeaderFilter from "./HeaderFilter"
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
@@ -58,13 +59,48 @@ const CardContainer = styled.div`
   }
 `
 
-
-
-export default class ProductCard extends React.Component {
+export default class ProductGrid extends React.Component {
 
   state = {
-    products: []
+    products: [],
+    filters: {
+      minValue: 0,
+      maxValue: Infinity,
+    },
+    searchText: "",
+    category: ""
   }
+
+  inputText = (event) =>{
+    this.setState({searchText: event.target.value})
+  };
+
+  updateFilter = (newValueFilter) =>{
+    this.setState({filters: {...this.state.filters, ...newValueFilter}})
+  };
+
+  category = (event) =>{
+    this.setState({cateory: event.target.value})
+  };
+
+
+  filterProducts = () =>{
+    const newProducts = this.state.products
+    const filteredProducts = newProducts.filter(product =>{
+      return product.name.toLowerCase().indexOf(this.state.searchText.toLowerCase())> -1
+    }).filter(product =>{
+      return product.price < (this.state.filters.maxValue || Infinity)
+    }).filter(product =>{
+      return product.price > (this.state.filters.minValue || 0)
+    }).filter(product =>{
+      return product.description.toLowerCase().indexOf(this.state.searchText.toLowerCase())> -1
+    })
+    // .filter(product =>{
+    //   return product.category === (this.state.category)
+    // })
+
+    return filteredProducts
+  };
 
   getProducts = () => {
     axios
@@ -85,51 +121,54 @@ export default class ProductCard extends React.Component {
   render() {
 
     return (
-    <CardsGrid>
-      <ThemeProvider theme={theme}>
-      {this.state.products.map ( (item) => {
-            return (
-      <CardContainer>
-      <Card>
+      <CardsGrid>
+        <HeaderFilter stateProducts={this.state.products} onChangeFilter={this.updateFilter}
+          searchTitle={this.state.searchText} changeSearch={this.inputText} function={this.filterProducts}/>
+        <ThemeProvider theme={theme}>
+          {this.filterProducts().map ( (item) => {
+              return (
+          <CardContainer>
+            <Card>
               <CardActionArea>
-              <CardMedia
-                component="img"
-                src={item.photos}
-                alt={item.name}
-                height="140"
-            />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {item.name}
-                </Typography>
-           
-                <Typography variant="caption" display="inline" variant="subtitle2" >
-                  R$ 
-                </Typography>
-                     
-                <Typography variant="h6" display="inline">
-                {item.price}
-                </Typography>
-                <Typography gutterBottom variant="subtitle2">
-                  Pague no {item.paymentMethod} em até <strong>{item.installments}x</strong>
-                </Typography >
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {item.description}
-                </Typography>
-                
 
-              </CardContent>
+                <CardMedia
+                  component="img"
+                  src={item.photos}
+                  alt={item.name}
+                  height="140"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {item.name}
+                  </Typography>
+            
+                  <Typography variant="caption" display="inline" variant="subtitle2" >
+                    R$ 
+                  </Typography>
+                      
+                  <Typography variant="h6" display="inline">
+                  {item.price}
+                  </Typography>
+                  <Typography gutterBottom variant="subtitle2">
+                    Pague no {item.paymentMethod} em até <strong>{item.installments}x</strong>
+                  </Typography >
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {item.description}
+                  </Typography>
+                  
+                </CardContent>
+  
               </CardActionArea>
+
               <CardActions>
                 <Button startIcon={<ShoppingCartIcon />}size="small" color="secondary">
                   Adicionar ao carrinho
                 </Button>
               </CardActions>
-              
-      </Card>
-      </CardContainer>
-            )
-             })}
+            </Card>
+          </CardContainer>
+              )
+              })}
         </ThemeProvider>
     </CardsGrid>
     )
