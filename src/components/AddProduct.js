@@ -1,18 +1,25 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+
+// === Icons ===
+import AddIcon from "@material-ui/icons/Add";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+
+// === Material Components ===
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
+
+// === IMGS ===
 import CardImage from "./../img/card.svg";
 
+// Div Externa
 const ExtDiv = styled.div`
   display: flex;
   background-color: #a1a1a1;
@@ -20,24 +27,34 @@ const ExtDiv = styled.div`
   height: auto;
 `;
 
+// Div do form
 const IntDiv = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #f4f5f7;
+  background-color: white;
   padding: 24px;
   align-items: center;
   justify-content: space-evenly;
   width: 100vw;
-  height: 140vh;
+  min-height: 140vh;
+
+  @media (min-width: 600px) {
+    height: 200vh;
+  }
 `;
 
 const Title = styled.h3`
   color: #fdb930;
 `;
 
+// Imagem
 const CardSvg = styled.img`
   width: 50%;
   margin: 20px 0;
+
+  @media (min-width: 600px) {
+    width: 30%;
+  }
 `;
 
 const theme = createMuiTheme({
@@ -54,14 +71,15 @@ const theme = createMuiTheme({
 export default class AddProduct extends React.Component {
   state = {
     productInput: "",
-    priceInput: 2,
-    installmentsInput: 3,
+    priceInput: "",
+    installmentsInput: "",
     descriptionInput: "",
     paymentInput: "",
     categoryInput: "",
     urlInputValue: "",
   };
 
+  // ====== OnChange dos Inputs ========
   onChangeProduct = (e) => {
     this.setState({ productInput: e.target.value });
     console.log(this.state.productInput);
@@ -97,6 +115,7 @@ export default class AddProduct extends React.Component {
     console.log(this.state.urlInputValue);
   };
 
+  // ==== API de criar produto ====
   createProduct = () => {
     const body = {
       name: this.state.productInput,
@@ -122,8 +141,18 @@ export default class AddProduct extends React.Component {
       .then((response) => {
         alert(`Seu produto foi adicionado com sucesso!`);
         console.log(response);
+        this.setState({
+          productInput: "",
+          priceInput: "",
+          installmentsInput: "",
+          descriptionInput: "",
+          paymentInput: "",
+          categoryInput: "",
+          urlInputValue: "",
+        });
       })
       .catch((err) => {
+        alert(`Preencha todos os campos do produto!`);
         console.log(err.response);
       });
   };
@@ -135,6 +164,7 @@ export default class AddProduct extends React.Component {
           <ExtDiv>
             <IntDiv>
               <Button
+                onClick={this.props.onClickBack}
                 color="secondary"
                 variant="outlined"
                 size="small"
@@ -145,6 +175,7 @@ export default class AddProduct extends React.Component {
               <CardSvg src={CardImage} />
               <Title>Cadastre seu produto</Title>
               <TextField
+                value={this.state.productInput}
                 required
                 variant="outlined"
                 label="Produto"
@@ -153,6 +184,7 @@ export default class AddProduct extends React.Component {
               />
               <TextField
                 required
+                value={this.state.priceInput}
                 type="number"
                 variant="outlined"
                 label="Valor"
@@ -161,6 +193,7 @@ export default class AddProduct extends React.Component {
               />
               <TextField
                 required
+                value={this.state.installmentsInput}
                 type="number"
                 variant="outlined"
                 label="Parcelas"
@@ -169,6 +202,7 @@ export default class AddProduct extends React.Component {
               />
               <TextField
                 required
+                value={this.state.descriptionInput}
                 type="text"
                 variant="outlined"
                 label="Descrição"
@@ -188,11 +222,12 @@ export default class AddProduct extends React.Component {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
+                  value={this.state.paymentInput}
                   onChange={this.onChangePayment}
                   label="Categoria"
                 >
-                  <MenuItem value={"cartao"}>Cartão</MenuItem>
-                  <MenuItem value={"avista"}>À vista</MenuItem>
+                  <MenuItem value={"cartão"}>Cartão</MenuItem>
+                  <MenuItem value={"boleto"}>Boleto</MenuItem>
                 </Select>
               </FormControl>
               <FormControl variant="outlined">
@@ -208,13 +243,14 @@ export default class AddProduct extends React.Component {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
+                  value={this.state.categoryInput}
                   onChange={this.onChangeCategory}
                   label="Categoria"
                 >
-                  <MenuItem value={"acessorios"}>Acessórios</MenuItem>
-                  <MenuItem value={"casa"}>Casa</MenuItem>
-                  <MenuItem value={"decoracao"}>Decoração</MenuItem>
-                  <MenuItem value={"eco"}>Eco</MenuItem>
+                  <MenuItem value={"Acessórios"}>Acessórios</MenuItem>
+                  <MenuItem value={"Casa"}>Casa</MenuItem>
+                  <MenuItem value={"Decoração"}>Decoração</MenuItem>
+                  <MenuItem value={"Eco"}>Eco</MenuItem>
                 </Select>
               </FormControl>
 
@@ -225,6 +261,7 @@ export default class AddProduct extends React.Component {
                 label="URL"
                 color="secondary"
                 onChange={this.onChangeUrl}
+                value={this.state.urlInputValue}
               />
 
               <Button

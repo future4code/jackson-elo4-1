@@ -5,7 +5,6 @@ import LoginScreen from "./components/LoginScreen";
 import ProductGrid from "./components/ProductGrid";
 import SellerPanel from "./components/SellerPanel";
 
-
 const ContainerApp = styled.main`
   display: flex;
   flex-direction: column;
@@ -13,51 +12,45 @@ const ContainerApp = styled.main`
   height: auto;
 `;
 
-
 export default class App extends React.Component {
-  state={
-    pageRender: "pageheader"
+  state = {
+    pageRender: "pageDirection",
+
   };
 
-  onClickClient = () =>{
-    this.setState({pageRender: "pageProducts"})
+  onClickClient = () => {
+    this.setState({ pageRender: "pageProducts" });
   };
 
-  onClickSeller = () =>{
-    this.setState({pageRender: "pageSeller"})
+  onClickSeller = () => {
+    this.setState({ pageRender: "pageSeller" });
   };
 
-  onClickAddProducts = () =>{
-    this.setState({pageRender: "pageAddProducts"})
-  };
-
-  onClickButton = (newState) =>{
-    this.setState({newStateProducts: newState})
+  onClickAddProducts = () => {
+    this.setState({ pageRender: "pageAddProducts" });
   };
 
 
   render() {
-    const renderize = () =>{
-      if(this.state.pageRender === "pageDirection"){
-        return <LoginScreen functionOnClickClient={this.onClickClient}
-         functionOnClickSeller={this.onClickSeller}/>
-      }
-      else if(this.state.pageRender === "pageProducts"){
-        return <ProductGrid/>
-      }
-      else if(this.state.pageRender === "pageSeller"){
-        return <SellerPanel functionOnClickAdd={this.onClickAddProducts}/>
-      }
-      else if(this.state.pageRender === "pageAddProducts"){
-        return <AddProduct/>
+    const renderize = () => {
+      if (this.state.pageRender === "pageDirection") {
+        return (
+          <LoginScreen
+            functionOnClickClient={this.onClickClient}
+            functionOnClickSeller={this.onClickSeller}
+          />
+        );
+      } else if (this.state.pageRender === "pageProducts") {
+        return <ProductGrid />;
+      } else if (this.state.pageRender === "pageSeller") {
+        return <SellerPanel functionOnClickAdd={this.onClickAddProducts} />;
+      } else if (this.state.pageRender === "pageAddProducts") {
+        return <AddProduct onClickBack={this.onClickSeller} />;
       }
     };
 
-    return (
-      <ContainerApp>
-        <ProductGrid/>
-        {renderize()}
-      </ContainerApp>
-    );
-  };
-np}
+
+    return <div>{renderize()}</div>;
+  }
+}
+
