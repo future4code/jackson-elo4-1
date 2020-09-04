@@ -226,8 +226,8 @@ export default class AddProduct extends React.Component {
                   onChange={this.onChangePayment}
                   label="Categoria"
                 >
-                  <MenuItem value={"cartao"}>Cartão</MenuItem>
-                  <MenuItem value={"avista"}>À vista</MenuItem>
+                  <MenuItem value={"cartão"}>Cartão</MenuItem>
+                  <MenuItem value={"boleto"}>Boleto</MenuItem>
                 </Select>
               </FormControl>
               <FormControl variant="outlined">
