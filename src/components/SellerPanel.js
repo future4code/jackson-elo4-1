@@ -1,13 +1,26 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
-import Button from "@material-ui/core/Button";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import CardImage from "./../img/seller-delete.png";
+import Delete from '@material-ui/icons/DeleteOutlined';
+
+
 
 const GeneralContainer = styled.div `
-background-color: #f4f5f7;
+background-color: white;
 min-height: 100vh;
 width: 100%;`
+
+const CardPhoto = styled.img`
+width: 50%;
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+margin-left: 25%;
+margin-bottom: 10%;`
 
 const Title = styled.p ` 
 text-align:center;
@@ -41,13 +54,14 @@ const NamePrice = styled.div `
 font-size: 12px;  
 margin-right: 2rem;
 margin-left: 2rem;
-text-align:center;
+text-align:left;
 margin-top: 0.8rem;
-display:grid;
-grid-template-rows: 1fr 1fr;
+display:flex;
+flex-direction:column;
 margin-top: 0px;`
 
-const ButtonConfig = styled.div ` `
+const ButtonConfig = styled.div `
+margin-right: 10px;`
 
 
 const theme = createMuiTheme({
@@ -128,6 +142,8 @@ export default class SellerPanel extends React.Component {
 
       <Title>Gerenciar Produtos</Title>
 
+      <CardPhoto src={CardImage} />
+
       <ProductDeleteSection>
           {this.state.products.map((item) => {
           return <p onClick={this.getProducts} key={item.id}>
@@ -136,18 +152,19 @@ export default class SellerPanel extends React.Component {
 
           <GridProducts>
           <NamePrice>
-          <div>{"Produto: "}{item.name}{`   `}</div>
-          <div>{"Preço: R$"}  {item.price}</div> 
+          <div><strong>{"Produto: "} </strong>{item.name}{`   `}</div>
+          <div><strong>{"Preço: "}  </strong> {"R$ "} {item.price}</div> 
           </NamePrice>
           
          
           <ButtonConfig>
           <Button  
-          variant="contained" 
+          variant="contained"
           color="primary" 
           href="#contained-buttons"
           size="small"
-          onClick={() => this.deleteProducts(item.id)}>Deletar Produto</Button>
+          endIcon={<Delete />}
+          onClick={() => this.deleteProducts(item.id)}> Deletar Produto</Button>
           </ButtonConfig> 
 
          

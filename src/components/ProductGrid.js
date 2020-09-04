@@ -162,6 +162,7 @@ export default class ProductCard extends React.Component {
     console.log(this.state.products);
     return (
       <div>
+
         <OrderDiv>
           <FormControl variant="outlined">
             <Box width="200px">
@@ -186,70 +187,60 @@ export default class ProductCard extends React.Component {
             </Select>
           </FormControl>
         </OrderDiv>
-        <CardsGrid>
-          <ThemeProvider theme={theme}>
-            {this.state.products.map((item) => {
-              return (
-                <CardContainer>
-                  <Card>
-                    <CardActionArea>
-                      <CardMedia
-                        component="img"
-                        src={item.photos}
-                        alt={item.name}
-                        height="140"
-                      />
-                      <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {item.name}
-                        </Typography>
+    <CardsGrid>
+      <ThemeProvider theme={theme}>
+      {this.state.products.map ( (item) => {
+            return (
+      <CardContainer>
+      <Card>
+              <CardActionArea>
+              <CardMedia
+                component="img"
+                src={item.photos}
+                alt={item.name}
+                height="140"
+            />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {item.name}
+                </Typography>
+           
+                <Typography variant="caption" display="inline" variant="subtitle2" >
+                  R$ 
+                </Typography>
+                     
+                <Typography variant="h6" display="inline">
+                {item.price}
+                </Typography>
+                <Typography gutterBottom variant="subtitle2">
+                  Pague no {item.paymentMethod} em até <strong>{item.installments}x</strong>
+                </Typography >
+                <Typography variant="body2" color="textSecondary" component="p">
+                  <strong>{item.category}</strong> - {item.description}
+                </Typography>
+                
 
-                        <Typography
-                          variant="caption"
-                          display="inline"
-                          variant="subtitle2"
-                        >
-                          R$
-                        </Typography>
+              </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button startIcon={<AddShoppingCartIcon />}size="small" color="secondary">
+                  Adicionar ao carrinho
+                </Button>
+              </CardActions>
+              
+      </Card>
+      </CardContainer>
+            )
+             })}
+             
+              <ShoppingIconContainer>
+                <Fab size="large" color="secondary">
+                  <ShoppingCartIcon/>
+                </Fab>
+              </ShoppingIconContainer>
 
-                        <Typography variant="h6" display="inline">
-                          {item.price}
-                        </Typography>
-                        <Typography gutterBottom variant="subtitle2">
-                          Pague no {item.paymentMethod} em até{" "}
-                          <strong>{item.installments}x</strong>
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                        >
-                          {item.description}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                    <CardActions>
-                      <Button
-                        startIcon={<AddShoppingCartIcon />}
-                        size="small"
-                        color="secondary"
-                      >
-                        Adicionar ao carrinho
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </CardContainer>
-              );
-            })}
-
-            <ShoppingIconContainer>
-              <Fab size="large" color="secondary">
-                <ShoppingCartIcon />
-              </Fab>
-            </ShoppingIconContainer>
-          </ThemeProvider>
-        </CardsGrid>
-      </div>
-    );
-  }
-}
+        </ThemeProvider>
+    </CardsGrid>
+    </div>
+    )
+  }}
