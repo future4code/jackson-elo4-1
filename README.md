@@ -8,6 +8,7 @@
 - Área destinada ao vendedor 
     - Botão de cadastro de produto encaminha para a tela onde é criado um novo anúncio de produto
     - Os produtos já cadastrados podem ser visualizados e deletados
+    - Botão para voltar para a tela dos produtos cadastrados
 - Tela de cadastro de produto
     - Todo produto contém os seguintes campos:
       - Nome
