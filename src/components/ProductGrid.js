@@ -3,26 +3,30 @@ import axios from "axios";
 import styled from "styled-components";
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import ShoppingCart from './ShoppingCart'
 
 // MATERIAL UI
 import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+
+// MATERIAL UI da parte de ordenar
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
 
-import Fab from "@material-ui/core/Fab";
+
+import Fab from '@material-ui/core/Fab';
 
 //MATERIAL UI ICON
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 //tema
 const theme = createMuiTheme({
@@ -50,10 +54,12 @@ const CardsGrid = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 2em;
     align-content: center;
-    justify-items: center;
+    justify-items: center;    
     width: 60vw;
   }
-`;
+
+  
+`
 
 const CardContainer = styled.div`
   margin-bottom: 1em;
@@ -62,7 +68,7 @@ const CardContainer = styled.div`
   @media (min-width: 600px) {
     width: 15em;
   }
-`;
+`
 
 const ShoppingIconContainer = styled.div`
   position: fixed;
@@ -70,7 +76,7 @@ const ShoppingIconContainer = styled.div`
   right: 0;
   padding-right: 1em;
   padding-bottom: 2em;
-`;
+`
 
 const OrderDiv = styled.div`
   display: flex;
@@ -80,11 +86,16 @@ const OrderDiv = styled.div`
   align-items: center;
 `;
 
+
+
 export default class ProductCard extends React.Component {
+
   state = {
     products: [],
-    sort: "",
-  };
+    cartVisibility: false,
+    cartItems: [],
+    subtotal: 0,
+  }
 
   onChangeSort = (event) => {
     const arrayAlterado = [...this.state.products];
@@ -137,33 +148,62 @@ export default class ProductCard extends React.Component {
     );
   };
 
+
   getProducts = () => {
     axios
-      .get(
-        "https://us-central1-labenu-apis.cloudfunctions.net/eloFourOne/products"
-      )
-      .then((response) => {
-        this.setState({ products: response.data.products });
-      })
-      .catch((error) => {
-        alert(
-          "Erro ao recuperar todos os produtos:",
-          error,
-          "Reinicie a página!"
-        );
-      });
-  };
+    .get("https://us-central1-labenu-apis.cloudfunctions.net/eloFourOne/products")
+    .then ( (response) => {
+      this.setState({products:response.data.products})
+    })
+    .catch ( (error) => {
+      alert("Erro ao recuperar todos os produtos:", error, "Reinicie a página!")
+    })
+  }
 
   componentDidMount = () => {
-    this.getProducts();
-  };
+    this.getProducts()
+  }
+
+  // função que mostra o carrinho na tela:
+  showCart = () => {
+    this.setState({ cartVisibility: !this.state.cartVisibility })
+  }
+
+  // função que adiciona os itens no carrinho:
+  addToCart = (id, name, price) => {
+
+    let condition = this.state.cartItems.some( (item) => {
+      return id === item.id
+    })
+
+    if(condition) {
+      const newAddedItems = []
+
+      for (let i=0; i<this.state.cartItems.length; i++) {
+        let item = this.state.cartItems[i]
+        if(id === item.id) {
+          item.qnt +=1
+        }
+      newAddedItems.push(item)
+    }
+    this.setState({cartItems: newAddedItems, subtotal:(this.state.subtotal + price)})
+    } 
+    else {
+      const addedItem = {id: id, name: name, price: price, qnt:1}
+      const addedItems = [...this.state.cartItems, addedItem]
+      this.setState({cartItems: addedItems, subtotal:(this.state.subtotal + addedItem.price)})
+    }
+
+    this.showCart()
+  }
+
 
   render() {
-    console.log(this.state.products);
+
     return (
       <div>
-
-        <OrderDiv>
+      
+      <OrderDiv>
           <FormControl variant="outlined">
             <Box width="200px">
               <InputLabel
@@ -186,9 +226,22 @@ export default class ProductCard extends React.Component {
               <MenuItem value={"price"}>Preço</MenuItem>
             </Select>
           </FormControl>
-        </OrderDiv>
+       </OrderDiv>
+
     <CardsGrid>
       <ThemeProvider theme={theme}>
+
+      {/* Aqui é onde o carrinho de compra é renderizado: */}
+      {this.state.cartVisibility && 
+      <ShoppingCart 
+        showCart={this.showCart}
+        cartItems = {this.state.cartItems}
+        subtotal = {this.state.subtotal}
+        >
+      </ShoppingCart>}
+
+
+      {/* Aqui é onde o grid de produtos é renderizado: */}
       {this.state.products.map ( (item) => {
             return (
       <CardContainer>
@@ -223,7 +276,11 @@ export default class ProductCard extends React.Component {
               </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button startIcon={<AddShoppingCartIcon />}size="small" color="secondary">
+                <Button 
+                  startIcon={<AddShoppingCartIcon />}
+                  size="small" 
+                  color="secondary" 
+                  onClick={() => this.addToCart(item.id, item.name, item.price)}>
                   Adicionar ao carrinho
                 </Button>
               </CardActions>
@@ -233,7 +290,7 @@ export default class ProductCard extends React.Component {
             )
              })}
              
-              <ShoppingIconContainer>
+              <ShoppingIconContainer onClick={this.showCart}>
                 <Fab size="large" color="secondary">
                   <ShoppingCartIcon/>
                 </Fab>
