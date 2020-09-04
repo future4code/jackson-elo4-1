@@ -54,14 +54,14 @@ const NamePrice = styled.div `
 font-size: 12px;  
 margin-right: 2rem;
 margin-left: 2rem;
-text-align:center;
+text-align:left;
 margin-top: 0.8rem;
-display:grid;
-grid-template-rows: 1fr 1fr;
+display:flex;
+flex-direction:column;
 margin-top: 0px;`
 
 const ButtonConfig = styled.div `
-margin-right: 10px; `
+margin-right: 10px;`
 
 
 const theme = createMuiTheme({
@@ -152,19 +152,19 @@ export default class SellerPanel extends React.Component {
 
           <GridProducts>
           <NamePrice>
-          <div>{"Produto: "}{item.name}{`   `}</div>
-          <div>{"Preço: R$"}  {item.price}</div> 
+          <div><strong>{"Produto: "} </strong>{item.name}{`   `}</div>
+          <div><strong>{"Preço: "}  </strong> {"R$ "} {item.price}</div> 
           </NamePrice>
           
          
           <ButtonConfig>
           <Button  
-          variant="contained" 
+          variant="contained"
           color="primary" 
           href="#contained-buttons"
           size="small"
           endIcon={<Delete />}
-          onClick={() => this.deleteProducts(item.id)}>Deletar Produto</Button>
+          onClick={() => this.deleteProducts(item.id)}> Deletar Produto</Button>
           </ButtonConfig> 
 
          

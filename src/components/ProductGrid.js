@@ -14,6 +14,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+// MATERIAL UI da parte de ordenar
+import Select from "@material-ui/core/Select";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Box from "@material-ui/core/Box";
+
+
 import Fab from '@material-ui/core/Fab';
 
 //MATERIAL UI ICON
@@ -70,6 +78,14 @@ const ShoppingIconContainer = styled.div`
   padding-bottom: 2em;
 `
 
+const OrderDiv = styled.div`
+  display: flex;
+  width: 100vw;
+  height: 15vh;
+  justify-content: center;
+  align-items: center;
+`;
+
 
 
 export default class ProductCard extends React.Component {
@@ -80,6 +96,58 @@ export default class ProductCard extends React.Component {
     cartItems: [],
     subtotal: 0,
   }
+
+  onChangeSort = (event) => {
+    const arrayAlterado = [...this.state.products];
+
+    this.setState(
+      {
+        sort: event.target.value,
+      },
+      () => {
+        console.log(this.state.sort);
+
+        switch (this.state.sort) {
+          case "price":
+            arrayAlterado.sort(function (a, b) {
+              return a.price - b.price;
+            });
+            break;
+
+          case "name":
+            arrayAlterado.sort(function (a, b) {
+              const tituloA = a.name.toUpperCase();
+              const tituloB = b.name.toUpperCase();
+
+              if (tituloA === tituloB) {
+                return 0;
+              } else if (tituloA < tituloB) {
+                return -1;
+              } else {
+                return 1;
+              }
+            });
+            break;
+
+          case "category":
+            arrayAlterado.sort(function (a, b) {
+              const tituloA = a.category.toUpperCase();
+              const tituloB = b.category.toUpperCase();
+              if (tituloA === tituloB) {
+                return 0;
+              } else if (tituloA < tituloB) {
+                return -1;
+              } else {
+                return 1;
+              }
+            });
+            break;
+        }
+        this.setState({ products: arrayAlterado });
+      }
+    );
+  };
+
 
   getProducts = () => {
     axios
@@ -134,6 +202,32 @@ export default class ProductCard extends React.Component {
 
     return (
       <div>
+      
+      <OrderDiv>
+          <FormControl variant="outlined">
+            <Box width="200px">
+              <InputLabel
+                id="demo-simple-select-outlined-label"
+                color="secondary"
+              >
+                Ordenar por
+              </InputLabel>
+            </Box>
+
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={this.state.sort}
+              onChange={(event) => this.onChangeSort(event)}
+            >
+              <MenuItem value={""}></MenuItem>
+              <MenuItem value={"name"}>Nome</MenuItem>
+              <MenuItem value={"category"}>Categoria</MenuItem>
+              <MenuItem value={"price"}>Preço</MenuItem>
+            </Select>
+          </FormControl>
+       </OrderDiv>
+
     <CardsGrid>
       <ThemeProvider theme={theme}>
 
