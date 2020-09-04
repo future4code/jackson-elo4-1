@@ -247,10 +247,10 @@ export default class AddProduct extends React.Component {
                   onChange={this.onChangeCategory}
                   label="Categoria"
                 >
-                  <MenuItem value={"acessorios"}>Acessórios</MenuItem>
-                  <MenuItem value={"casa"}>Casa</MenuItem>
-                  <MenuItem value={"decoracao"}>Decoração</MenuItem>
-                  <MenuItem value={"eco"}>Eco</MenuItem>
+                  <MenuItem value={"Acessórios"}>Acessórios</MenuItem>
+                  <MenuItem value={"Casa"}>Casa</MenuItem>
+                  <MenuItem value={"Decoração"}>Decoração</MenuItem>
+                  <MenuItem value={"Eco"}>Eco</MenuItem>
                 </Select>
               </FormControl>
 
