@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import ShoppingCart from './ShoppingCart'
 
 // MATERIAL UI
 import Button from "@material-ui/core/Button";
@@ -74,7 +75,10 @@ const ShoppingIconContainer = styled.div`
 export default class ProductCard extends React.Component {
 
   state = {
-    products: []
+    products: [],
+    cartVisibility: false,
+    cartItems: [],
+    subtotal: 0,
   }
 
   getProducts = () => {
@@ -92,6 +96,39 @@ export default class ProductCard extends React.Component {
     this.getProducts()
   }
 
+  // função que mostra o carrinho na tela:
+  showCart = () => {
+    this.setState({ cartVisibility: !this.state.cartVisibility })
+  }
+
+  // função que adiciona os itens no carrinho:
+  addToCart = (id, name, price) => {
+
+    let condition = this.state.cartItems.some( (item) => {
+      return id === item.id
+    })
+
+    if(condition) {
+      const newAddedItems = []
+
+      for (let i=0; i<this.state.cartItems.length; i++) {
+        let item = this.state.cartItems[i]
+        if(id === item.id) {
+          item.qnt +=1
+        }
+      newAddedItems.push(item)
+    }
+    this.setState({cartItems: newAddedItems, subtotal:(this.state.subtotal + price)})
+    } 
+    else {
+      const addedItem = {id: id, name: name, price: price, qnt:1}
+      const addedItems = [...this.state.cartItems, addedItem]
+      this.setState({cartItems: addedItems, subtotal:(this.state.subtotal + addedItem.price)})
+    }
+
+    this.showCart()
+  }
+
 
   render() {
 
@@ -99,6 +136,18 @@ export default class ProductCard extends React.Component {
       <div>
     <CardsGrid>
       <ThemeProvider theme={theme}>
+
+      {/* Aqui é onde o carrinho de compra é renderizado: */}
+      {this.state.cartVisibility && 
+      <ShoppingCart 
+        showCart={this.showCart}
+        cartItems = {this.state.cartItems}
+        subtotal = {this.state.subtotal}
+        >
+      </ShoppingCart>}
+
+
+      {/* Aqui é onde o grid de produtos é renderizado: */}
       {this.state.products.map ( (item) => {
             return (
       <CardContainer>
@@ -133,7 +182,11 @@ export default class ProductCard extends React.Component {
               </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button startIcon={<AddShoppingCartIcon />}size="small" color="secondary">
+                <Button 
+                  startIcon={<AddShoppingCartIcon />}
+                  size="small" 
+                  color="secondary" 
+                  onClick={() => this.addToCart(item.id, item.name, item.price)}>
                   Adicionar ao carrinho
                 </Button>
               </CardActions>
@@ -143,7 +196,7 @@ export default class ProductCard extends React.Component {
             )
              })}
              
-              <ShoppingIconContainer>
+              <ShoppingIconContainer onClick={this.showCart}>
                 <Fab size="large" color="secondary">
                   <ShoppingCartIcon/>
                 </Fab>
