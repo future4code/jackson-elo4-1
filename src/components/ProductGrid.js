@@ -162,85 +162,96 @@ export default class ProductCard extends React.Component {
     console.log(this.state.products);
     return (
       <div>
+        <ThemeProvider theme={theme}>
+          <OrderDiv>
+            <FormControl variant="outlined">
+              <Box width="200px">
+                <InputLabel
+                  id="demo-simple-select-outlined-label"
+                  color="secondary"
+                >
+                  Ordenar por
+                </InputLabel>
+              </Box>
 
-        <OrderDiv>
-          <FormControl variant="outlined">
-            <Box width="200px">
-              <InputLabel
-                id="demo-simple-select-outlined-label"
-                color="secondary"
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={this.state.sort}
+                onChange={(event) => this.onChangeSort(event)}
               >
-                Ordenar por
-              </InputLabel>
-            </Box>
-
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={this.state.sort}
-              onChange={(event) => this.onChangeSort(event)}
-            >
-              <MenuItem value={""}></MenuItem>
-              <MenuItem value={"name"}>Nome</MenuItem>
-              <MenuItem value={"category"}>Categoria</MenuItem>
-              <MenuItem value={"price"}>Preço</MenuItem>
-            </Select>
-          </FormControl>
-        </OrderDiv>
-    <CardsGrid>
-      <ThemeProvider theme={theme}>
-      {this.state.products.map ( (item) => {
-            return (
-      <CardContainer>
-      <Card>
-              <CardActionArea>
-              <CardMedia
-                component="img"
-                src={item.photos}
-                alt={item.name}
-                height="140"
-            />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {item.name}
-                </Typography>
-           
-                <Typography variant="caption" display="inline" variant="subtitle2" >
-                  R$ 
-                </Typography>
-                     
-                <Typography variant="h6" display="inline">
-                {item.price}
-                </Typography>
-                <Typography gutterBottom variant="subtitle2">
-                  Pague no {item.paymentMethod} em até <strong>{item.installments}x</strong>
-                </Typography >
-                <Typography variant="body2" color="textSecondary" component="p">
-                  <strong>{item.category}</strong> - {item.description}
-                </Typography>
-                
-
-              </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button startIcon={<AddShoppingCartIcon />}size="small" color="secondary">
-                  Adicionar ao carrinho
-                </Button>
-              </CardActions>
-              
-      </Card>
-      </CardContainer>
-            )
-             })}
-             
-              <ShoppingIconContainer>
-                <Fab size="large" color="secondary">
-                  <ShoppingCartIcon/>
-                </Fab>
-              </ShoppingIconContainer>
-
+                <MenuItem value={""}></MenuItem>
+                <MenuItem value={"name"}>Nome</MenuItem>
+                <MenuItem value={"category"}>Categoria</MenuItem>
+                <MenuItem value={"price"}>Preço</MenuItem>
+              </Select>
+            </FormControl>
+          </OrderDiv>
         </ThemeProvider>
-    </CardsGrid>
-    </div>
-    )
-  }}
+        <CardsGrid>
+          <ThemeProvider theme={theme}>
+            {this.state.products.map((item) => {
+              return (
+                <CardContainer>
+                  <Card>
+                    <CardActionArea>
+                      <CardMedia
+                        component="img"
+                        src={item.photos}
+                        alt={item.name}
+                        height="140"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {item.name}
+                        </Typography>
+
+                        <Typography
+                          variant="caption"
+                          display="inline"
+                          variant="subtitle2"
+                        >
+                          R$
+                        </Typography>
+
+                        <Typography variant="h6" display="inline">
+                          {item.price}
+                        </Typography>
+                        <Typography gutterBottom variant="subtitle2">
+                          Pague no {item.paymentMethod} em até{" "}
+                          <strong>{item.installments}x</strong>
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          <strong>{item.category}</strong> - {item.description}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                      <Button
+                        startIcon={<AddShoppingCartIcon />}
+                        size="small"
+                        color="secondary"
+                      >
+                        Adicionar ao carrinho
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </CardContainer>
+              );
+            })}
+
+            <ShoppingIconContainer>
+              <Fab size="large" color="secondary">
+                <ShoppingCartIcon />
+              </Fab>
+            </ShoppingIconContainer>
+          </ThemeProvider>
+        </CardsGrid>
+      </div>
+    );
+  }
+}
