@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import ShoppingCart from "./ShoppingCart";
 
 // MATERIAL UI
 import Button from "@material-ui/core/Button";
@@ -12,6 +13,8 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+
+// MATERIAL UI da parte de ordenar
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -83,7 +86,9 @@ const OrderDiv = styled.div`
 export default class ProductCard extends React.Component {
   state = {
     products: [],
-    sort: "",
+    cartVisibility: false,
+    cartItems: [],
+    subtotal: 0,
   };
 
   onChangeSort = (event) => {
@@ -158,8 +163,44 @@ export default class ProductCard extends React.Component {
     this.getProducts();
   };
 
+  // função que mostra o carrinho na tela:
+  showCart = () => {
+    this.setState({ cartVisibility: !this.state.cartVisibility });
+  };
+
+  // função que adiciona os itens no carrinho:
+  addToCart = (id, name, price) => {
+    let condition = this.state.cartItems.some((item) => {
+      return id === item.id;
+    });
+
+    if (condition) {
+      const newAddedItems = [];
+
+      for (let i = 0; i < this.state.cartItems.length; i++) {
+        let item = this.state.cartItems[i];
+        if (id === item.id) {
+          item.qnt += 1;
+        }
+        newAddedItems.push(item);
+      }
+      this.setState({
+        cartItems: newAddedItems,
+        subtotal: this.state.subtotal + price,
+      });
+    } else {
+      const addedItem = { id: id, name: name, price: price, qnt: 1 };
+      const addedItems = [...this.state.cartItems, addedItem];
+      this.setState({
+        cartItems: addedItems,
+        subtotal: this.state.subtotal + addedItem.price,
+      });
+    }
+
+    this.showCart();
+  };
+
   render() {
-    console.log(this.state.products);
     return (
       <div>
         <ThemeProvider theme={theme}>
@@ -188,8 +229,19 @@ export default class ProductCard extends React.Component {
             </FormControl>
           </OrderDiv>
         </ThemeProvider>
+
         <CardsGrid>
           <ThemeProvider theme={theme}>
+            {/* Aqui é onde o carrinho de compra é renderizado: */}
+            {this.state.cartVisibility && (
+              <ShoppingCart
+                showCart={this.showCart}
+                cartItems={this.state.cartItems}
+                subtotal={this.state.subtotal}
+              ></ShoppingCart>
+            )}
+
+            {/* Aqui é onde o grid de produtos é renderizado: */}
             {this.state.products.map((item) => {
               return (
                 <CardContainer>
@@ -235,6 +287,9 @@ export default class ProductCard extends React.Component {
                         startIcon={<AddShoppingCartIcon />}
                         size="small"
                         color="secondary"
+                        onClick={() =>
+                          this.addToCart(item.id, item.name, item.price)
+                        }
                       >
                         Adicionar ao carrinho
                       </Button>
@@ -244,7 +299,7 @@ export default class ProductCard extends React.Component {
               );
             })}
 
-            <ShoppingIconContainer>
+            <ShoppingIconContainer onClick={this.showCart}>
               <Fab size="large" color="secondary">
                 <ShoppingCartIcon />
               </Fab>
