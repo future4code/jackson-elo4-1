@@ -14,7 +14,7 @@ const ContainerApp = styled.main`
 
 export default class App extends React.Component {
   state = {
-    pageRender: "pageDirection",
+    pageRender: "page",
 
   };
 
@@ -50,7 +50,11 @@ export default class App extends React.Component {
     };
 
 
-    return <div>{renderize()}</div>;
+    return (
+      <ContainerApp>
+        <ProductGrid />{renderize()}
+      </ContainerApp>
+    )
   }
 }
 
