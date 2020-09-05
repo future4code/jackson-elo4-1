@@ -96,8 +96,8 @@ export default class ProductCard extends React.Component {
     },
     searchText: "",
     category: ""
-  }
   };
+  
 
   onChangeSort = (event) => {
     const arrayAlterado = [...this.state.products];
@@ -159,7 +159,7 @@ export default class ProductCard extends React.Component {
   };
 
   category = (event) =>{
-    this.setState({cateory: event.target.value})
+    this.setState({category: event.target.value})
   };
 
 
@@ -168,15 +168,17 @@ export default class ProductCard extends React.Component {
     const filteredProducts = newProducts.filter(product =>{
       return product.name.toLowerCase().indexOf(this.state.searchText.toLowerCase())> -1
     }).filter(product =>{
-      return product.price < (this.state.filters.maxValue || Infinity)
+      return product.price <= (this.state.filters.maxValue || Infinity)
     }).filter(product =>{
-      return product.price > (this.state.filters.minValue || 0)
+      return product.price >= (this.state.filters.minValue || 0)
     }).filter(product =>{
       return product.description.toLowerCase().indexOf(this.state.searchText.toLowerCase())> -1
     })
-    // .filter(product =>{
-    //   return product.category === (this.state.category)
-    // })
+    if(this.state.category !== ""){
+      return newProducts.filter(product =>{
+        return product.category === this.state.category
+    })
+    }
 
     return filteredProducts
   };
@@ -240,11 +242,11 @@ export default class ProductCard extends React.Component {
   };
 
   render() {
-    return (
 
+    return (
        <div>
-       <HeaderFilter stateProducts={this.state.products} onChangeFilter={this.updateFilter}
-          searchTitle={this.state.searchText} changeSearch={this.inputText} function={this.filterProducts}/>
+       <HeaderFilter stateProducts={this.state.products} onChangeFilter={this.updateFilter} stateInputMin={this.state.filters.minValue}
+          searchTitle={this.state.searchText} changeSearch={this.inputText} changeCategory={this.category} stateCategory={this.state.category}/>
         <ThemeProvider theme={theme}>
           <OrderDiv>
             <FormControl variant="outlined">
