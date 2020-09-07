@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import styled from "styled-components";
 import HeaderFilter from "./HeaderFilter"
+import LogoImage from "./../img/logo.png";
+
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import ShoppingCart from "./ShoppingCart";
@@ -42,12 +44,16 @@ const theme = createMuiTheme({
 
 // styled
 
+const Img = styled.img`
+  margin-top: 20px;
+  margin-left: 40px;
+`
+
 const CardsGrid = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 1em;
-  margin-left: 1em;
 
   @media (min-width: 800px) {
     display: grid;
@@ -61,7 +67,7 @@ const CardsGrid = styled.div`
 
 const CardContainer = styled.div`
   margin-bottom: 1em;
-  width: 50vw;
+  width: 80vw;
 
   @media (min-width: 600px) {
     width: 15em;
@@ -245,7 +251,8 @@ export default class ProductCard extends React.Component {
 
     return (
        <div>
-       <HeaderFilter stateProducts={this.state.products} onChangeFilter={this.updateFilter} stateInputMin={this.state.filters.minValue}
+        <Img src={LogoImage}/>
+        <HeaderFilter stateProducts={this.state.products} onChangeFilter={this.updateFilter} stateInputMin={this.state.filters.minValue}
           searchTitle={this.state.searchText} changeSearch={this.inputText} changeCategory={this.category} stateCategory={this.state.category}/>
         <ThemeProvider theme={theme}>
           <OrderDiv>
