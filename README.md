@@ -23,6 +23,7 @@
     - O usuário é capaz de filtrar por:
       - Valor mínimo e máximo
       - Título ou descrição
+      - Categoria
   - O usuário é capaz de ordenar por:
       - Nome
       - Preço
@@ -33,6 +34,4 @@
   - Clicando fora da tela do carrinho, já volta para a tela dos produtos
   - O usuário pode ver os produtos adicionados, a quantidade, o subtotal e o valor total dos produtos
 
-### O que não funciona:
-- Responsividade do HeaderFilter (área dos filtros)
-- Filtro seletor da categoria
+
